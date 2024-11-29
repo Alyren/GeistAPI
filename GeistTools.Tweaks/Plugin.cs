@@ -11,7 +11,7 @@ namespace GeistTools.Tweaks
         private void Awake()
         {
             Logger = base.Logger;
-            Logger.LogInfo($"Tweaks is loaded!");
+            Logger.LogInfo($"Tweaks!");
         }
     }
 }
