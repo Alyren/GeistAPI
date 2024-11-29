@@ -13,6 +13,7 @@
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
     <RootNamespace>GeistTools.Tweaks</RootNamespace>
+    <BaseOutputPath>F:\SteamLibrary\steamapps\common\ATLYSS\BepInEx\plugins\GeistTools.Tweaks</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
