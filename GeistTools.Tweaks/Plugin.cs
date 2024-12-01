@@ -4,7 +4,9 @@ using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using GeistTools.Tweaks.Core;
+using GeistTools.Tweaks.Core.Patches;
 using GeistTools.Tweaks.Core.Tweaks;
+using HarmonyLib;
 
 namespace GeistTools.Tweaks;
 
@@ -22,6 +24,7 @@ public class Plugin : BaseUnityPlugin
 
         LoadTweaks();
         InitializeTweaks();
+        ApplyPatches();
     }
 
     private void LoadTweaks()
@@ -92,5 +95,12 @@ public class Plugin : BaseUnityPlugin
                 Logger.LogError($"Failed calling Awake on Tweak [{tweak.Name}]. Reason: {e.Message}");
             }
         }
+    }
+
+    private void ApplyPatches()
+    {
+        Logger.LogInfo("Applying patches:");
+        Logger.LogInfo("  - Borderless Window Patch");
+        Harmony.CreateAndPatchAll(typeof(BorderlessFullscreenPatch));
     }
 }
