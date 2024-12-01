@@ -29,11 +29,15 @@
 	<PackageReference ExcludeAssets="runtime" />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <PackageReference Include="Atlyss.GameLibs" Version="1.5.5" />
+    <PackageReference Include="Atlyss.GameLibs" Version="1.5.5">
+      <Aliases></Aliases>
+    </PackageReference>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="UnityEngine.Modules" Version="2021.3.16" IncludeAssets="compile" />
+    <PackageReference Include="UnityEngine.Modules" Version="2021.3.16" IncludeAssets="compile">
+      <Aliases></Aliases>
+    </PackageReference>
   </ItemGroup>
   
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
