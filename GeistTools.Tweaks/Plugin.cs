@@ -92,7 +92,7 @@ public class Plugin : BaseUnityPlugin
             }
             catch (Exception e)
             {
-                Logger.LogError($"Failed calling Awake on Tweak [{tweak.Name}]. Reason: {e.Message}");
+                Logger.LogError($"Failed calling Awake on Tweak [{tweak.Name}].\n    Reason: {e.Message}\n    Stack Trace:\n{e.StackTrace}");
             }
         }
     }
