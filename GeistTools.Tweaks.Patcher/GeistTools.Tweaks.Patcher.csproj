@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <AssemblyName>GeistTools.Tweaks</AssemblyName>
-    <Product>GeistTools.Tweaks</Product>
+    <TargetFramework>net35</TargetFramework>
+    <AssemblyName>GeistTools.Tweaks.Patcher</AssemblyName>
+    <Product>My first plugin</Product>
     <Version>1.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
@@ -12,10 +12,10 @@
       https://nuget.bepinex.dev/v3/index.json;
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
-    <RootNamespace>GeistTools.Tweaks</RootNamespace>
-	<OutputPath>F:\Projects\Atlyss\Clients\ATLYSS Latest\BepInEx\plugins\GeistTools.Tweaks</OutputPath>
+    <RootNamespace>GeistTools.Tweaks.Patcher</RootNamespace>
+	<OutputPath>F:\Projects\Atlyss\Clients\ATLYSS Latest\BepInEx\patchers\GeistTools.Tweaks.Patcher</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<BaseOutputPath>F:\Projects\Atlyss\Clients\ATLYSS Latest\BepInEx\plugins\GeistTools.Tweaks</BaseOutputPath>
+	<BaseOutputPath>F:\Projects\Atlyss\Clients\ATLYSS Latest\BepInEx\patchers\GeistTools.Tweaks.Patcher</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,19 +25,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
   </PropertyGroup>
-  <ItemDefinitionGroup>
-	<PackageReference ExcludeAssets="runtime" />
-  </ItemDefinitionGroup>
+
   <ItemGroup>
-    <PackageReference Include="Atlyss.GameLibs" Version="1.5.5">
-      <Aliases></Aliases>
-    </PackageReference>
+    <PackageReference Include="AssetsTools.NET" Version="3.0.0" />
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="UnityEngine.Modules" Version="2021.3.16" IncludeAssets="compile">
-      <Aliases></Aliases>
-    </PackageReference>
+    <PackageReference Include="UnityEngine.Modules" Version="2021.3.16" IncludeAssets="compile" />
   </ItemGroup>
   
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -45,6 +39,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Core\Utilities\" />
+    <None Update="classdata.tpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
