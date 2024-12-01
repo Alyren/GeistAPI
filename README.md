@@ -6,13 +6,9 @@ Development of this repo is still very much in progress, and there's not that mu
 
 ## Latest Release
 
-## Installing
+## Installing Tweaks
 
-1. Download [BepInEx 5.4.23.2](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.2)
-  - You'll want the `BepInEx_win_x64_5.4.23.2.zip` file, specifically.
-2. Extract BepInEx to the game directory's root.
-3. Download the [latest release of GeistTools](https://github.com/Alyren/GeistTools/releases/latest).
-4. Extract it to the root of your game folder.
+Download the [latest release on Thunderstore](https://github.com/Alyren/GeistTools/releases/latest) using [r2modman](https://thunderstore.io/package/ebkr/r2modman/).
 
 ## GeistTools.API
 
@@ -26,6 +22,8 @@ A collection of quality-of-life tweaks and bugfixes for the game.
 
 Planned Tweaks:
 - [x] UI Scaling Fix / Ultrawide Fix
+- [x] Borderless Window
+- [x] Don't Minimize On Focus Loss
 - [ ] Training Dummy DPS Meter
 - [ ] Auto-Select Last Character
 - [ ] Easier Ledge Grabbing

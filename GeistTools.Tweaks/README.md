@@ -40,6 +40,8 @@ A collection of Quality-of-Life and bugfixes for Atlyss.
 # Planned Tweaks
 
 - [x] UI Scaling Fix / Ultrawide Fix
+- [x] Borderless Window
+- [x] Don't Minimize On Focus Loss
 - [ ] Training Dummy DPS Meter
 - [ ] Auto-Select Last Character
 - [ ] Easier Ledge Grabbing
