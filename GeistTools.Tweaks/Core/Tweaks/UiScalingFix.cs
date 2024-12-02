@@ -20,10 +20,13 @@ namespace GeistTools.Tweaks.Core.Tweaks
         private ConfigEntry<int> referenceResolutionWidth;
         private ConfigEntry<int> referenceResolutionHeight;
         private ConfigEntry<float> escapeMenuScaleOverride;
+        private ConfigEntry<int> tabMenuResWidth;
+        private ConfigEntry<int> tabMenuResHeight;
 
         private List<CanvasScaler> scalersInScene { get; set; } = new();
 
-        private Dictionary<string, ConfigEntry<float>> customOverrides = new();
+        private Dictionary<string, ConfigEntry<float>> customScaleFactors = new();
+        private Dictionary<string, (ConfigEntry<int>, ConfigEntry<int>)> customResolutions = new();
 
         public void Awake(TweakLoadContainer container)
         {
@@ -67,10 +70,29 @@ namespace GeistTools.Tweaks.Core.Tweaks
                 "EscapeMenuOverride",
                 1.5f,
                 "Scale value for escape menu. (-1 to disable)"
-            ); 
-            
-            customOverrides.AddRange(new Dictionary<string, ConfigEntry<float>>{
+            );
+
+            tabMenuResWidth = Config.Bind(
+                "Tweaks.UiScalingFix",
+                "InventoryResX",
+                1280,
+                "Reference resolution width for the inventory menu."
+            );
+
+            tabMenuResHeight = Config.Bind(
+                "Tweaks.UiScalingFix",
+                "InventoryResY",
+                720,
+                "Reference resolution height for the inventory menu."
+            );
+
+            customScaleFactors.AddRange(new Dictionary<string, ConfigEntry<float>>{
                 { "Canvas_EscapeMenu", escapeMenuScaleOverride },
+            });
+
+            customResolutions.AddRange(new Dictionary<string, (ConfigEntry<int>, ConfigEntry<int>)>
+            {
+                { "Canvas_InGameMenu", (tabMenuResWidth, tabMenuResHeight) },
             });
         }
 
@@ -107,12 +129,19 @@ namespace GeistTools.Tweaks.Core.Tweaks
             {
                 var oldRatio = scaler.matchWidthOrHeight;
                 var oldRes = scaler.referenceResolution;
+                
                 scaler.matchWidthOrHeight = widthToHeightRatio.Value;
                 scaler.referenceResolution = referenceResolution;
+
+                if (customResolutions.TryGetValue(scaler.name, out var customResolution))
+                {
+                    scaler.referenceResolution = new Vector2(customResolution.Item1.Value, customResolution.Item2.Value);
+                }
+
                 Plugin.Logger.LogDebug($"  Applied: [{scaler.name}]");
                 Plugin.Logger.LogDebug($"    - matchWidthOrHeight: {oldRatio} -> {scaler.matchWidthOrHeight}");
                 Plugin.Logger.LogDebug($"    - referenceResolution: {oldRes} -> {scaler.referenceResolution}");
-                if (customOverrides.TryGetValue(scaler.name, out var newScaleFactor))
+                if (customScaleFactors.TryGetValue(scaler.name, out var newScaleFactor))
                 {
                     var oldScaleFactor = scaler.scaleFactor;
                     scaler.scaleFactor = newScaleFactor.Value;
