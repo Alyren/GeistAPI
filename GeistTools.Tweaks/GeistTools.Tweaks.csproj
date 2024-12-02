@@ -13,9 +13,9 @@
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
     <RootNamespace>GeistTools.Tweaks</RootNamespace>
-	<OutputPath>F:\Projects\Atlyss\Clients\ATLYSS Latest\BepInEx\plugins\GeistTools.Tweaks</OutputPath>
+	<OutputPath>F:\SteamLibrary\steamapps\common\ATLYSS\BepInEx\plugins\GeistTools.Tweaks</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<BaseOutputPath>F:\Projects\Atlyss\Clients\ATLYSS Latest\BepInEx\plugins\GeistTools.Tweaks</BaseOutputPath>
+	<BaseOutputPath>F:\SteamLibrary\steamapps\common\ATLYSS\BepInEx\plugins\GeistTools.Tweaks</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
