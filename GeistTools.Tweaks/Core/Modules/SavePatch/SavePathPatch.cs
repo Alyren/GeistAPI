@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HarmonyLib;
 using UnityEngine;
 
-namespace GeistTools.Tweaks.Core.Patches
+namespace GeistTools.Tweaks.Core.Modules.SavePatch
 {
     internal class SavePathPatch : IPatch
     {
