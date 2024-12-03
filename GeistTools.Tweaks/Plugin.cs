@@ -16,6 +16,7 @@ public class Plugin : BaseUnityPlugin
     internal static new ManualLogSource Logger;
 
     private List<ITweak> Tweaks { get; } = new();
+    private List<IPatch> Patchets { get; } = new();
 
     private void Awake()
     {
@@ -27,6 +28,18 @@ public class Plugin : BaseUnityPlugin
         ApplyPatches();
     }
 
+    private System.Type[] GetTypesImplementing(System.Type interfaceType)
+    {
+        if (!interfaceType.IsInterface)
+            throw new Exception($"Must pass an interface type to GetTypesImplementing!");
+        return typeof(Plugin)
+            .Assembly
+            .GetTypes()
+            .Where(type => !type.IsInterface && !type.IsAbstract)
+            .Where(type => interfaceType.IsAssignableFrom(type))
+            .ToArray();
+    }
+
     private void LoadTweaks()
     {
         if (Tweaks.Count != 0)
@@ -36,13 +49,7 @@ public class Plugin : BaseUnityPlugin
         }
         try
         {
-            var assembly = typeof(Plugin).Assembly;
-            var tweakInterface = typeof(ITweak);
-            var tweakImplementations = assembly
-                .GetTypes()
-                .Where(type => !type.IsInterface && !type.IsAbstract)
-                .Where(type => tweakInterface.IsAssignableFrom(type))
-                .ToArray();
+            var tweakImplementations = GetTypesImplementing(typeof(ITweak));
 
             Logger.LogInfo($"Tweaks found: {tweakImplementations.Length}");
             foreach (var tweak in tweakImplementations)
@@ -99,8 +106,20 @@ public class Plugin : BaseUnityPlugin
 
     private void ApplyPatches()
     {
-        Logger.LogInfo("Applying patches:");
-        Logger.LogInfo("  - Borderless Window Patch");
-        Harmony.CreateAndPatchAll(typeof(BorderlessFullscreenPatch));
+        var patches = GetTypesImplementing(typeof(IPatch));
+
+        Logger.LogInfo($"Patches loading: {patches.Length}");
+        foreach (var patch in patches)
+        {
+            try
+            {
+                Logger.LogInfo($"  - {patch.Name}");
+                Harmony.CreateAndPatchAll(patch);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError($"Failed to load {patch.Name}!\nReason: {e.Message}\nStacktrace: {e.StackTrace}");
+            }
+        }
     }
 }

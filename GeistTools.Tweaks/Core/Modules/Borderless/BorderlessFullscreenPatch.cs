@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace GeistTools.Tweaks.Core.Patches
 {
-    internal class BorderlessFullscreenPatch
+    internal class BorderlessFullscreenPatch : IPatch
     {
         [HarmonyPrefix]
         [HarmonyPatch(typeof(SettingsManager), nameof(SettingsManager.Set_Resolution))]

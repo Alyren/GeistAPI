@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Configuration;
+using GeistTools.Tweaks.Core.Modules;
 using MonoMod.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace GeistTools.Tweaks.Core.Tweaks
+namespace GeistTools.Tweaks.Core.Modules.UiScaling
 {
     internal class UiScalingFix : ITweak
     {
@@ -67,8 +68,8 @@ namespace GeistTools.Tweaks.Core.Tweaks
                 "EscapeMenuOverride",
                 1.5f,
                 "Scale value for escape menu. (-1 to disable)"
-            ); 
-            
+            );
+
             customOverrides.AddRange(new Dictionary<string, ConfigEntry<float>>{
                 { "Canvas_EscapeMenu", escapeMenuScaleOverride },
             });
@@ -89,7 +90,7 @@ namespace GeistTools.Tweaks.Core.Tweaks
 
         private void RefreshScalersInScene()
         {
-            scalersInScene = GameObject.FindObjectsOfType<Canvas>(true)
+            scalersInScene = UnityEngine.Object.FindObjectsOfType<Canvas>(true)
                 .Where(canvas =>
                        canvas.renderMode == RenderMode.ScreenSpaceOverlay
                     || canvas.renderMode == RenderMode.ScreenSpaceCamera
