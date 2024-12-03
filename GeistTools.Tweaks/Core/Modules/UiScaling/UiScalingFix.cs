@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Configuration;
-using GeistTools.Tweaks.Core.Modules;
 using MonoMod.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,44 +25,43 @@ namespace GeistTools.Tweaks.Core.Modules.UiScaling
 
         private Dictionary<string, ConfigEntry<float>> customOverrides = new();
 
-        public void Awake(TweakLoadContainer container)
+        public void Awake()
         {
-            Config = container.Config;
             LoadConfig();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         public void LoadConfig()
         {
-            fixEnabled = Config.Bind(
+            fixEnabled = Plugin.FileConfig.Bind(
                 "Tweaks.UiScalingFix",
                 "Enabled",
                 true,
                 "Enable the UI Scaling Fix."
             );
 
-            widthToHeightRatio = Config.Bind(
+            widthToHeightRatio = Plugin.FileConfig.Bind(
                 "Tweaks.UiScalingFix",
                 "ScaleRatio",
                 1f,
                 "Ratio of scaling from screen width to screen height. (Keep 1 if ultrawide)"
             );
 
-            referenceResolutionWidth = Config.Bind(
+            referenceResolutionWidth = Plugin.FileConfig.Bind(
                 "Tweaks.UiScalingFix",
                 "UIResolutionWidth",
                 1600,
                 "Reference Resolution X"
             );
 
-            referenceResolutionHeight = Config.Bind(
+            referenceResolutionHeight = Plugin.FileConfig.Bind(
                 "Tweaks.UiScalingFix",
                 "UIResolutionHeight",
                 900,
                 "Reference Resolution Y"
             );
 
-            escapeMenuScaleOverride = Config.Bind(
+            escapeMenuScaleOverride = Plugin.FileConfig.Bind(
                 "Tweaks.UiScalingFix",
                 "EscapeMenuOverride",
                 1.5f,

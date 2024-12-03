@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeistTools.Tweaks.Core.Modules
+namespace GeistTools.Tweaks.Core
 {
     internal interface IPatch
     {
+
     }
 }

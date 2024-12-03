@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using GeistTools.Tweaks.Core;
-using GeistTools.Tweaks.Core.Patches;
-using GeistTools.Tweaks.Core.Tweaks;
 using HarmonyLib;
 
 namespace GeistTools.Tweaks;
@@ -15,14 +14,16 @@ public class Plugin : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;
 
-    private List<ITweak> Tweaks { get; } = new();
-    private List<IPatch> Patchets { get; } = new();
+    internal static ConfigFile FileConfig { get; private set; }
 
+    private List<ITweak> Tweaks { get; } = new();
+    private List<IPatch> Patches { get; } = new();
+    
     private void Awake()
     {
+        FileConfig = Config;
         Logger = base.Logger;
         Logger.LogInfo($"Tweaks loaded!");
-
         LoadTweaks();
         InitializeTweaks();
         ApplyPatches();
@@ -87,15 +88,11 @@ public class Plugin : BaseUnityPlugin
 
     private void InitializeTweaks()
     {
-        var container = new TweakLoadContainer
-        {
-            Config = Config,
-        };
         foreach (var tweak in Tweaks)
         {
             try
             {
-                tweak.Awake(container);
+                tweak.Awake();
             }
             catch (Exception e)
             {
