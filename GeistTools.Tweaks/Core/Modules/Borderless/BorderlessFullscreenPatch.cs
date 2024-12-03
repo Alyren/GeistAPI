@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HarmonyLib;
 using UnityEngine;
 
-namespace GeistTools.Tweaks.Core.Patches
+namespace GeistTools.Tweaks.Core.Modules.Borderless
 {
     internal class BorderlessFullscreenPatch : IPatch
     {
@@ -38,12 +38,12 @@ namespace GeistTools.Tweaks.Core.Patches
         static bool Set_FullscreenTogglePrefix(SettingsManager __instance)
         {
             Plugin.Logger.LogWarning(nameof(Set_FullscreenTogglePrefix));
-            
+
             Screen.fullScreen = __instance._fullScreenToggle.isOn;
-            Screen.fullScreenMode = __instance._fullScreenToggle.isOn 
-                ? FullScreenMode.FullScreenWindow 
+            Screen.fullScreenMode = __instance._fullScreenToggle.isOn
+                ? FullScreenMode.FullScreenWindow
                 : FullScreenMode.Windowed;
-            
+
             return false;
         }
     }
